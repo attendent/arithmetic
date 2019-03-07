@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qg.enroll.dao.ClientDao">
+    <update id="updateStudentReplyById">
+        UPDATE students
+        <set>
+            reply=${reply}
+        </set>
+        WHERE id=#{id};
+    </update>
+    <select id="getTimeAndPlace" resultType="string">
+        SELECT time_and_place
+        FROM inform
+        WHERE position=${position} AND grouper=#{grouper}
+        LIMIT 1
+    </select>
+    <select id="getStudentInfoById" resultType="com.qg.enroll.model.Student">
+        SELECT id, tel, name, sex, current, grouper, reply
+        FROM students
+        WHERE id=#{id}
+        LIMIT 1
+    </select>
+    <select id="getStudentByIdAndTel" resultType="com.qg.enroll.model.Student">
+        SELECT id, tel
+        FROM students
+        WHERE id=#{id} AND tel=#{tel}
+        LIMIT 1
+    </select>
+    <select id="saveFeedback" resultType="int" parameterType="com.qg.enroll.model.Feedback">
+        INSERT INTO feedback
+        (id, position, note)
+        VALUES
+        (
+          id=#{id},
+          position=${position},
+          node=#{node}
+        )
+    </select>
+    <select id="getStudentById" resultType="com.qg.enroll.model.Student">
+        SELECT id, tel
+        FROM students
+        WHERE id=#{id}
+        LIMIT 1
+    </select>
+    <select id="getStudentCurrentById" resultType="com.qg.enroll.model.Student">
+        SELECT id, tel, current
+        FROM students
+        WHERE id=#{id}
+        LIMIT 1
+    </select>
+</mapper>

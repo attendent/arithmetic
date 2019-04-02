@@ -59,7 +59,7 @@ public class convertTest {
      * 使用StringBuilder来连接字符串，减少了使用数组所需要的空间，字符串拼接效率也有所提高
      * 最后是忽略掉空字符，可以在最后直接拼所有的StringBuilder
      */
-    public String convert(String s, int numRows) {
+    public String convertSuccess2(String s, int numRows) {
         if (numRows == 1)
             return s;
 
@@ -84,6 +84,25 @@ public class convertTest {
             ret.append(row);
         return ret.toString();
 
+    }
+
+
+    public String convert(String s, int numRows) {
+
+        if (numRows == 1) return s;
+
+        StringBuilder ret = new StringBuilder();
+        int n = s.length();
+        int cycleLen = 2 * numRows - 2;
+
+        for (int i = 0; i < numRows; i++) {
+            for (int j = 0; j + i < n; j += cycleLen) {
+                ret.append(s.charAt(j + i));
+                if (i != 0 && i != numRows - 1 && j + cycleLen - i < n)
+                    ret.append(s.charAt(j + cycleLen - i));
+            }
+        }
+        return ret.toString();
     }
 
 
